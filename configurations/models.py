@@ -38,13 +38,10 @@ class ConfiguracionPicoPlaca():
             self.arreglo_dias[dia] = valores
 
 
-
-
     def get_arreglo_dias(self):
         return self.arreglo_dias
 
     def get_arreglo_por_dia(self,dia):
-
         return self.arreglo_dias[dia]
 
     def get_horainicio(self):
