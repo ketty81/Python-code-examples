@@ -48,13 +48,26 @@ class ConfiguracionPicoPlaca():
 class Vehiculo():
     placa = ''
     def __init__(self,placa):
-        self.placa = placa
+        try:
+            dig = int(placa[-1])
+            self.placa = placa
+        except:
+            raise ValueError("El ultimo digito de la placa no es numerico")
 
     def digito_placa(self):
         return int(self.placa[-1])
 
-
     def puede_circular(self,fecha,horario,configuracion):
+        try:
+            fecha = datetime.datetime.strptime(fecha,'%d-%m-%Y')
+        except:
+             raise ValueError("El formato de fecha no es correcto")
+
+        try:
+            horario = datetime.datetime.strptime(horario,'%H:%M:%S')
+        except:
+            raise ValueError("El formato del horario no es correcto")
+
         diasemana = fecha.strftime('%a')
         valores = configuracion.get_arreglo_por_dia(diasemana)
         horainicio = configuracion.get_horainicio()
