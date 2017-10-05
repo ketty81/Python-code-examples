@@ -22,13 +22,29 @@ class ConfiguracionPicoPlaca():
         self.horainicio = datetime.datetime.strptime('07:00:00','%H:%M:%S')
         self.horafin = datetime.datetime.strptime('09:00:00','%H:%M:%S')
 
-    def setear_valores(self,dia,valores):
-        self.arreglo_dias[dia] = valores
+    def setear_valores_dia(self,dia,valores):
+        if not isinstance(valores, list):
+            raise ValueError("La funcion recibe un arreglo de valores enteros")
+        else:
+            for valor in valores:
+                try:
+                    valor = int(valor)
+                except ValueError:
+                    raise ValueError("Los valores a asignar deben ser enteros")
+
+        if not self.arreglo_dias.has_key(dia):
+            raise ValueError("El dia ingresado no existe en el listado de dias permitidos")
+        else:
+            self.arreglo_dias[dia] = valores
+
+
+
 
     def get_arreglo_dias(self):
         return self.arreglo_dias
 
     def get_arreglo_por_dia(self,dia):
+
         return self.arreglo_dias[dia]
 
     def get_horainicio(self):
@@ -38,10 +54,17 @@ class ConfiguracionPicoPlaca():
         return self.horafin
 
     def set_horainicio(self,hora):
-        self.horainicio = hora
+        try:
+            self.horainicio = datetime.datetime.strptime(hora,'%H:%M:%S')
+        except:
+            raise ValueError("El formato del horario no es correcto")
 
-    def set_horainicio(self,hora):
-        self.horainicio = hora
+    def set_horafin(self,hora):
+        try:
+            self.horafin = datetime.datetime.strptime(hora,'%H:%M:%S')
+        except:
+            raise ValueError("El formato del horario no es correcto")
+
 
 
 
